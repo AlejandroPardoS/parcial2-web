@@ -19,6 +19,14 @@ export class AsistenteService {
         if (!evento)
             throw new Error("El evento con el id dado no existe");
 
+        const asistentes = evento.asistentes;
+        for (let i = 0; i < asistentes.length; i++) {
+            for (let j = i + 1; j < asistentes.length; j++) {
+                if (asistentes[i].email === asistentes[j].email)
+                    throw new Error("Hay email duplicado en el mismo evento");
+            }
+        }
+
         if (evento.asistentes.length > evento.auditorio.capacidad)
             throw new Error("Los asistentes del evento superan la capacidad del auditorio");
         asistente.evento = evento;
